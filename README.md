@@ -1,4 +1,5 @@
 # HoYoLAB-Checkin
+
 [![TypeScript](https://img.shields.io/static/v1?style=for-the-badge&label=TypeScript&message=v5.5.3&color=3178C6&logo=typescript)](https://www.typescriptlang.org/)
 
 Automated daily check-ins for all HoYoverse games using GitHub Actions.
@@ -7,9 +8,8 @@ Automated daily check-ins for all HoYoverse games using GitHub Actions.
 
 - **Automated Daily Check-ins**: Executes daily check-ins for HoYoverse games.
 - **Auto Game Detection**: Automatically detects which games are registered and performs check-ins accordingly.
-- **Discord Webhook Notifications**: Sends notifications to a Discord channel about check-in status and any relevant updates.
+- **Discord Notifications**: Sends notifications to a Discord channel about check-in status and any relevant updates using webhooks.
 - **Multiple Accounts Support**: Handles check-ins for multiple HoYoLAB accounts simultaneously.
-
 
 ## Getting Started
 
@@ -24,10 +24,12 @@ Automated daily check-ins for all HoYoverse games using GitHub Actions.
 
 1. **Fork the repository**: Go to [HoYoLAB-Checkin on GitHub](https://github.com/yourusername/HoYoLAB-Checkin) and fork the repository.
 
-2. **Add environment variables to GitHub Actions**:
+2. **Retrieve Tokens from HoYoLAB**: Use a network monitoring tool to capture the `stoken` and `mid` from HoYoLAB requests. For detailed instructions, please refer to [this section](https://github.com/Thereallo1026/HoYoLAB-checkin#where-can-i-find-my-stoken).
+
+3. **Add environment variables to GitHub Actions**:
 
    - Go to the "Settings" of your forked repository.
-   - Navigate to "Security" secion > "Secrets and variables" > "Actions".
+   - Navigate to the "Security" section > "Secrets and variables" > "Actions".
    - Add the following repository secrets:
 
      ```env
@@ -35,7 +37,7 @@ Automated daily check-ins for all HoYoverse games using GitHub Actions.
      WEBHOOK=https://discord.com/api/webhooks/000000000000000000/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
      ```
 
-3. **Ensure the GitHub Action works**:
+4. **Test GitHub action workflow**:
 
    - Make sure the action is triggered and runs correctly by executing it once manually from the GitHub Actions tab.
 
@@ -43,7 +45,6 @@ Automated daily check-ins for all HoYoverse games using GitHub Actions.
 
 - **Configuring tokens**: Ensure your tokens are correctly formatted in the environment variables.
 - **Setting Up Webhook**: Add your Discord webhook URL to the appropriate configuration file.
-
 
 ### Frequently Asked Questions
 
@@ -53,12 +54,14 @@ A network monitoring tool helps you inspect and analyze network traffic. Example
 
 #### Where can I find my stoken?
 
-You can locate your stoken by monitoring requests to the URL that includes "getBySToken" from the HoYoLAB app.
+You can locate your stoken by monitoring requests to the endpoint that includes "getBySToken" from the HoYoLAB app, it should be `https://sg-public-api.hoyoverse.com/account/ma-passport/token/getBySToken`.
 
-#### Why didn't the script work after some time?
+Both the stoken and mid can be found at the cookies header.
+![Screenshot](https://cdn.gilcdn.com/ContentMediaGenericFiles/c7f1a6796f497f81737b541a0823c80e-Full.webp)
 
-The script may fail due to an expired stoken or a HoYoLAB geetest challenge. To resolve this, log in to HoYoLAB and complete the geetest challenge to restore functionality for automation.
+#### Why did the script fail after a period of time?
 
+The script may fail due to expired stokens or a HoYoLAB geetest challenge. To resolve this, log in to HoYoLAB and complete the geetest challenge to restore functionality for automation.
 
 ### Contributing
 
@@ -70,5 +73,6 @@ The script may fail due to an expired stoken or a HoYoLAB geetest challenge. To 
 ### Contact
 
 For any questions or issues, feel free to:
+
 - Open an issue on the [GitHub repository](https://github.com/thereallo1026/HoYoLAB-Checkin/issues).
 - Find me in any of the socials mentioned in [my profile](https://thereallo.dev).
