@@ -1,5 +1,5 @@
 # HoYoLAB-Checkin
-[![TypeScript](https://img.shields.io/static/v1?style=for-the-badge&label=TypeScript&message=v4.5&color=3178C6&logo=typescript)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/static/v1?style=for-the-badge&label=TypeScript&message=v5.5.3&color=3178C6&logo=typescript)](https://www.typescriptlang.org/)
 
 Automated daily check-ins for all HoYoverse games using GitHub Actions.
 
