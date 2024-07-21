@@ -22,6 +22,8 @@ interface Embed {
   };
 }
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms)); //https://stackoverflow.com/questions/22707475/
+
 export async function sendWebhook(
   webhookUrl: string,
   game: string,
@@ -74,6 +76,7 @@ export async function sendCheckin(webhookUrl: string, results: any[]) {
         result.success,
         result.message
       );
+      await delay(800);
     }
   }
 }
