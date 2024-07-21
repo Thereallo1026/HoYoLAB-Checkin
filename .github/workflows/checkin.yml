@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  sign-in:
+  check-in:
     runs-on: ubuntu-latest
 
     steps:
