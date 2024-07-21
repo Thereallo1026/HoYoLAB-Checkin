@@ -16,6 +16,8 @@ Automated daily check-ins for all HoYoverse games using GitHub Actions.
 
 - GitHub Account
 - Discord Account
+- HoYoLAB Account
+- Network monitoring tool
 
 ### Usage
 
@@ -24,8 +26,8 @@ Automated daily check-ins for all HoYoverse games using GitHub Actions.
 2. **Add environment variables to GitHub Actions**:
 
    - Go to the "Settings" of your forked repository.
-   - Navigate to "Secrets and variables" > "Actions".
-   - Add the following environment variables:
+   - Navigate to "Security" secion > "Secrets and variables" > "Actions".
+   - Add the following repository secrets:
 
      ```env
      HOYO_TOKENS=[{"stoken":"v2_XXXXXXX1234567890abcdefgHIJKLMN","mid":"1234567890_abc"},{"stoken":"v2_XXXXXXX1234567890abcdefgHIJKLMN","mid":"0987654321_def"}]
@@ -41,13 +43,31 @@ Automated daily check-ins for all HoYoverse games using GitHub Actions.
 - **Configuring tokens**: Ensure your tokens are correctly formatted in the environment variables.
 - **Setting Up Webhook**: Add your Discord webhook URL to the appropriate configuration file.
 
+
+### Frequently Asked Questions
+
+#### What is a network monitoring tool?
+
+A network monitoring tool helps you inspect and analyze network traffic. Examples include Fiddler (Both Anywhere and Classic), HTTP Toolkit, and any other tool capable of proxying and monitoring device traffic.
+
+#### Where can I find my stoken?
+
+You can locate your stoken by monitoring requests to the URL that includes "getBySToken" from the HoYoLAB app.
+
+#### Why didn't the script work after some time?
+
+The script may fail due to an expired stoken or a HoYoLAB geetest challenge. To resolve this, log in to HoYoLAB and complete the geetest challenge to restore functionality for automation.
+
+
 ### Contributing
 
-1. Fork the repository at [HoYoLAB-Checkin](https://github.com/thereallo1026/HoYoLAB-Checkin).
+1. [Fork this repository](https://github.com/thereallo1026/HoYoLAB-Checkin).
 2. Create a new branch for your feature or bugfix.
 3. Commit your changes and push the branch.
-4. Open a pull request describing your changes.
+4. Open a pull request describing your changes in detail.
 
 ### Contact
 
-For any questions or issues, please open an issue on the [GitHub repository](https://github.com/thereallo1026/HoYoLAB-Checkin/issues).
+For any questions or issues, feel free to:
+- Open an issue on the [GitHub repository](https://github.com/thereallo1026/HoYoLAB-Checkin/issues).
+- Find me in any of the socials mentioned in [my profile](https://thereallo.dev).
