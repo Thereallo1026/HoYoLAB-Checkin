@@ -21,7 +21,7 @@ jobs:
         run: npm ci
 
       - name: Run check-in script
-        run: npm run
+        run: npm run script
         env:
           HOYO_TOKENS: ${{ secrets.HOYO_TOKENS }}
           WEBHOOK: ${{ secrets.WEBHOOK }}
