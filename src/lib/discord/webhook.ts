@@ -27,7 +27,7 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export async function sendWebhook(
   webhookUrl: string,
   game: string,
-  email: string,
+  accountName: string,
   success: boolean,
   message: string,
   thumbnailUrl?: string
@@ -43,7 +43,7 @@ export async function sendWebhook(
         "https://placeholder.com/default_icon",
     },
     footer: {
-      text: `${game} | ${email}`,
+      text: `${game} | ${accountName}`,
     },
   };
 
@@ -60,9 +60,12 @@ export async function sendWebhook(
 
   try {
     await axios.post(webhookUrl, payload);
-    console.log(`Webhook sent successfully for ${game} (${email})`);
+    console.log(`Webhook sent successfully for ${game} (${accountName})`);
   } catch (error) {
-    console.error(`Failed to send webhook for ${game} (${email}):`, error);
+    console.error(
+      `Failed to send webhook for ${game} (${accountName}):`,
+      error
+    );
   }
 }
 
@@ -72,7 +75,7 @@ export async function sendCheckin(webhookUrl: string, results: any[]) {
       await sendWebhook(
         webhookUrl,
         result.game,
-        accountResult.email,
+        accountResult.accountName,
         result.success,
         result.message
       );

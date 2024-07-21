@@ -10,7 +10,7 @@ interface CheckInResult {
 }
 
 interface AccountCheckInResult {
-  email: string;
+  accountName: string;
   results: CheckInResult[];
 }
 
@@ -78,7 +78,7 @@ export async function checkinAll(
 
   for (const account of accountsArray) {
     const results = await preformCheckin(account);
-    allResults.push({ email: account.email, results });
+    allResults.push({ accountName: account.accountName, results });
   }
 
   return allResults;

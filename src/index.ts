@@ -20,7 +20,7 @@ if (!DISCORD_WEBHOOK_URL) {
   for (const tokens of tokensArray) {
     const gameArray = await getGames(tokens);
     console.log(
-      `Got tokens for ${tokens.email}\nRegistered games: ${gameArray.join(
+      `Got tokens for ${tokens.accountName}\nRegistered games: ${gameArray.join(
         ", "
       )}`
     );
@@ -32,7 +32,7 @@ if (!DISCORD_WEBHOOK_URL) {
   const checkInResults = await checkinAll(tokensArray);
 
   for (const accountResult of checkInResults) {
-    console.log(`Daily check-in for ${accountResult.email}:`);
+    console.log(`Daily check-in for ${accountResult.accountName}:`);
     for (const result of accountResult.results) {
       console.log(
         `  ${result.game}: ${result.success ? "Success" : "Failed"} - ${
