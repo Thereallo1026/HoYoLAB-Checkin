@@ -21,6 +21,7 @@ async function getToken(stoken: string, mid: string) {
       throw new Error(json.message);
     }
     const accountName = json.data.user_info.account_name;
+    const email = json.data.user_info.email;
 
     const tokenData = json.data as TokenData;
     const ltuid = tokenData.user_info.aid;
@@ -28,7 +29,7 @@ async function getToken(stoken: string, mid: string) {
     if (!ltoken) {
       throw new Error("Failed to get ltoken");
     }
-    return { ltuid, ltoken, accountName };
+    return { ltuid, ltoken, data: { accountName, email } }; // return
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw new Error(`Failed to get token: ${error.message}`);
@@ -48,7 +49,10 @@ export async function condenseTokens(accountsArray: Account[]) {
       tokensArray.push({
         ltuid: token.ltuid,
         ltoken: token.ltoken,
-        accountName: token.accountName,
+        data: {
+          accountName: token.data.accountName,
+          email: token.data.email,
+        },
       });
     } catch (error) {
       console.error(error);
@@ -98,5 +102,9 @@ type TokenData = {
   };
 };
 
-export type TokenInfo = { ltuid: string; ltoken: string; accountName: string };
+export type TokenInfo = {
+  ltuid: string;
+  ltoken: string;
+  data: { accountName: string; email: string };
+};
 type Account = { stoken: string; mid: string };

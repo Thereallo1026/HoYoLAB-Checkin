@@ -19,11 +19,13 @@ if (!DISCORD_WEBHOOK_URL) {
   // log registered games
   for (const tokens of tokensArray) {
     const gameArray = await getGames(tokens);
-    console.log(
-      `Got tokens for ${tokens.accountName}\nRegistered games: ${gameArray.join(
-        ", "
-      )}`
-    );
+    const tokenMessage = `Got tokens for ${tokens.data.accountName}`;
+    if (!tokens.data.email) {
+      console.log(tokenMessage);
+    } else {
+      console.log(`${tokenMessage} (${tokens.data.email})`);
+    }
+    console.log(`Registered games: ${gameArray.join(", ")}`);
   }
 
   console.log("\nPerforming daily check-ins...\n");
@@ -35,7 +37,7 @@ if (!DISCORD_WEBHOOK_URL) {
     console.log(`Daily check-in for ${accountResult.accountName}:`);
     for (const result of accountResult.results) {
       console.log(
-        `  ${result.game}: ${result.success ? "Success" : "Failed"} - ${
+        `[${result.success ? "Success" : "Failed"}] ${result.game}: ${
           result.message
         }`
       );
@@ -45,6 +47,13 @@ if (!DISCORD_WEBHOOK_URL) {
 
   // send webhooks
   console.log("\nSending Discord webhooks...");
-  await sendCheckin(DISCORD_WEBHOOK_URL, checkInResults);
-  console.log("Discord webhooks sent.");
+  try {
+    await sendCheckin(DISCORD_WEBHOOK_URL, checkInResults);
+    console.log("Discord webhooks sent successfully.");
+  } catch (error) {
+    console.error(
+      "Failed to send Discord webhooks:",
+      error instanceof Error ? error.message : "Unknown error"
+    );
+  }
 })();

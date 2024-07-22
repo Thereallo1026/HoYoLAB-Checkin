@@ -14,7 +14,7 @@ interface AccountCheckInResult {
   results: CheckInResult[];
 }
 
-export async function preformCheckin(
+export async function performCheckin(
   tokens: TokenInfo
 ): Promise<CheckInResult[]> {
   const { ltuid, ltoken } = tokens;
@@ -77,8 +77,11 @@ export async function checkinAll(
   const allResults: AccountCheckInResult[] = [];
 
   for (const account of accountsArray) {
-    const results = await preformCheckin(account);
-    allResults.push({ accountName: account.accountName, results });
+    const results = await performCheckin(account);
+    allResults.push({
+      accountName: account.data.accountName,
+      results,
+    });
   }
 
   return allResults;
