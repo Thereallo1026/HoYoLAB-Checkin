@@ -24,7 +24,7 @@ Automated daily check-ins for all HoYoverse games using GitHub Actions.
 
 1. **Fork the repository**: Go to [HoYoLAB-Checkin on GitHub](https://github.com/yourusername/HoYoLAB-Checkin) and fork the repository.
 
-2. **Retrieve Tokens from HoYoLAB**: Use a network monitoring tool to capture the `stoken` and `mid` from HoYoLAB requests. For detailed instructions, please refer to [this section](https://github.com/Thereallo1026/HoYoLAB-checkin#where-can-i-find-my-stoken).
+2. **Retrieve Tokens from HoYoLAB**: Use a network monitoring tool to capture the `stoken` and `mid` from HoYoLAB requests. For detailed instructions, please refer to [this section](#where-can-i-find-my-stoken).
 
 3. **Add environment variables to GitHub Actions**:
 
@@ -54,7 +54,7 @@ A network monitoring tool helps you inspect and analyze network traffic. Example
 
 #### Where can I find my stoken?
 
-You can locate your stoken by monitoring requests to the endpoint that includes "getBySToken" from the HoYoLAB app, it should be `https://sg-public-api.hoyoverse.com/account/ma-passport/token/getBySToken`.
+You can locate your stoken by monitoring requests to the endpoint that includes "getBySToken" from the HoYoLAB app, the URL should be `https://sg-public-api.hoyoverse.com/account/ma-passport/token/getBySToken`.
 
 Both the stoken and mid can be found at the cookies header.
 ![Screenshot](https://cdn.gilcdn.com/ContentMediaGenericFiles/c7f1a6796f497f81737b541a0823c80e-Full.webp)
