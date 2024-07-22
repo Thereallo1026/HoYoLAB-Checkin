@@ -24,7 +24,7 @@ Automated daily check-ins for all HoYoverse games using GitHub Actions.
 
 1. **Fork the repository**: Go to [HoYoLAB-Checkin on GitHub](https://github.com/yourusername/HoYoLAB-Checkin) and fork the repository.
 
-2. **Retrieve Tokens from HoYoLAB**: Use a network monitoring tool to capture the `stoken` and `mid` from HoYoLAB requests. For detailed instructions, please refer to [this section](https://github.com/Thereallo1026/HoYoLAB-checkin#where-can-i-find-my-stoken).
+2. **Retrieve Tokens from HoYoLAB**: Use a network monitoring tool to capture the `stoken` and `mid` from HoYoLAB requests. For detailed instructions, please refer to [this section](#where-can-i-find-my-stoken).
 
 3. **Add environment variables to GitHub Actions**:
 
