@@ -1,8 +1,4 @@
-# HoYoLAB-Checkin
-
-[![TypeScript](https://img.shields.io/static/v1?style=for-the-badge&label=TypeScript&message=v5.5.3&color=3178C6&logo=typescript)](https://www.typescriptlang.org/)
-
-Automated daily check-ins for all HoYoverse games using GitHub Actions.
+![HoYoLAB Checkin](https://github.com/user-attachments/assets/1ae984ff-54cc-4040-814f-6b12d78b0930)
 
 ## Features
 
@@ -44,7 +40,7 @@ Automated daily check-ins for all HoYoverse games using GitHub Actions.
 ### Configuration
 
 - **Configuring tokens**: Ensure your tokens are correctly formatted in the environment variables.
-- **Setting Up Webhook**: Add your Discord webhook URL to the appropriate configuration file.
+- **Setting Up Webhook**: Add your Discord webhook URL to the appropriate environment variable.
 
 ### Frequently Asked Questions
 
@@ -61,7 +57,8 @@ Both the stoken and mid can be found at the cookies header.
 
 #### Why did the script fail after a period of time?
 
-The script may fail due to expired stokens or a HoYoLAB geetest challenge. To resolve this, log in to HoYoLAB and complete the geetest challenge to restore functionality for automation.
+The script may fail due to expired stokens or a HoYoLAB geetest challenge. To resolve this, log in to HoYoLAB and complete the geetest challenge to restore functionality for automation. 
+While the chance of this happening is minimal, it's not impossible.
 
 ### Contributing
 
