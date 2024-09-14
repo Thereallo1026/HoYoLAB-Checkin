@@ -1,8 +1,4 @@
-# HoYoLAB-Checkin
-
-[![TypeScript](https://img.shields.io/static/v1?style=for-the-badge&label=TypeScript&message=v5.5.3&color=3178C6&logo=typescript)](https://www.typescriptlang.org/)
-
-Automated daily check-ins for all HoYoverse games using GitHub Actions.
+![HoYoLAB Checkin](https://github.com/user-attachments/assets/3099cc04-a725-438b-8b1e-ba0f420b80a9)
 
 ## Features
 
