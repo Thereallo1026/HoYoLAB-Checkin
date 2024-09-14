@@ -11,6 +11,7 @@ interface CheckInResult {
 
 interface AccountCheckInResult {
   accountName: string;
+  email: string;
   results: CheckInResult[];
 }
 
@@ -80,6 +81,7 @@ export async function checkinAll(
     const results = await performCheckin(account);
     allResults.push({
       accountName: account.data.accountName,
+      email: account.data.email,
       results,
     });
   }

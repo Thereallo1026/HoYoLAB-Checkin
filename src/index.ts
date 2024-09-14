@@ -1,10 +1,8 @@
-import * as dotenv from "dotenv";
 import { condenseTokens } from "./lib/hoyolab/token";
 import { getGames } from "./lib/hoyolab/utils";
 import { checkinAll } from "./lib/hoyolab/daily";
 import { sendCheckin } from "./lib/discord/webhook";
 
-dotenv.config();
 const accountsArray = JSON.parse(process.env.HOYO_TOKENS as string);
 const DISCORD_WEBHOOK_URL = process.env.WEBHOOK;
 
@@ -19,13 +17,18 @@ if (!DISCORD_WEBHOOK_URL) {
   // log registered games
   for (const tokens of tokensArray) {
     const gameArray = await getGames(tokens);
-    const tokenMessage = `Got tokens for ${tokens.data.accountName}`;
-    if (!tokens.data.email) {
-      console.log(tokenMessage);
-    } else {
-      console.log(`${tokenMessage} (${tokens.data.email})`);
-    }
-    console.log(`Registered games: ${gameArray.join(", ")}`);
+    const { accountName, email } = tokens.data;
+
+    const tokenMessage =
+      accountName && email
+        ? `Got tokens for ${accountName} (${email})`
+        : `Got tokens for ${accountName || email}`;
+
+    console.log(tokenMessage);
+
+    console.log(
+      `Registered games: ${gameArray.length ? gameArray.join(", ") : "None"}`
+    );
   }
 
   console.log("\nPerforming daily check-ins...\n");
@@ -34,7 +37,8 @@ if (!DISCORD_WEBHOOK_URL) {
   const checkInResults = await checkinAll(tokensArray);
 
   for (const accountResult of checkInResults) {
-    console.log(`Daily check-in for ${accountResult.accountName}:`);
+    const identifier = accountResult.accountName || accountResult.email;
+    console.log(`Daily check-in for ${identifier}:`);
     for (const result of accountResult.results) {
       console.log(
         `[${result.success ? "Success" : "Failed"}] ${result.game}: ${

@@ -4,11 +4,11 @@
   "description": "Scheduled check-in for HoYoLAB.",
   "main": "index.ts",
   "scripts": {
-    "script": "ts-node src/index.ts"
+    "checkin": "bun src/index.ts"
   },
   "keywords": [],
   "author": "Thereallo",
-  "license": "ISC",
+  "license": "GPL-3.0-only",
   "dependencies": {
     "@types/node": "^20.14.11",
     "axios": "^1.7.2",

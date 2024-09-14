@@ -8,15 +8,15 @@ export const ROUTES = {
     actId: "e202406031448091",
   },
   "Genshin Impact": {
-    url: "https://sg-hk4e-api.hoyolab.com/event/sol/sign", // lang=en-us
+    url: "https://sg-hk4e-api.hoyolab.com/event/sol/sign",
     actId: "e202102251931481",
   },
   "Honkai Impact 3rd": {
-    url: "https://sg-public-api.hoyolab.com/event/mani/sign", // lang=en-us
+    url: "https://sg-public-api.hoyolab.com/event/mani/sign",
     actId: "e202110291205111",
   },
   "Tears of Themis": {
-    url: "https://sg-public-api.hoyolab.com/event/luna/os/sign", // lang=en-us
+    url: "https://sg-public-api.hoyolab.com/event/luna/os/sign",
     actId: "e202202281857121",
   },
 };

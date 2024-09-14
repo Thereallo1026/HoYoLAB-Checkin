@@ -12,16 +12,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
-        run: npm ci
+        run: bun i
 
       - name: Run check-in script
-        run: npm run script
+        run: bun checkin
         env:
           HOYO_TOKENS: ${{ secrets.HOYO_TOKENS }}
           WEBHOOK: ${{ secrets.WEBHOOK }}

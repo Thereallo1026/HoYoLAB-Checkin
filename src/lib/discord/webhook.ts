@@ -31,6 +31,7 @@ interface CheckInResult {
 
 interface AccountCheckInResult {
   accountName: string;
+  email: string;
   results: CheckInResult[];
 }
 
@@ -40,6 +41,7 @@ export async function sendWebhook(
   webhookUrl: string,
   game: string,
   accountName: string,
+  email: string,
   accountIndex: number,
   success: boolean,
   message: string,
@@ -82,7 +84,10 @@ export async function sendWebhook(
     if (response.status !== 204) {
       throw new Error(`Unexpected response status: ${response.status}`);
     }
-    console.log(`Webhook sent successfully for ${game} (${accountName})`);
+    const identifier =
+      accountName && email ? `${accountName} (${email})` : accountName || email;
+
+    console.log(`Webhook sent successfully for ${game} ${identifier}`);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       if (error.response?.status === 404) {
@@ -120,6 +125,7 @@ export async function sendCheckin(
           webhookUrl,
           result.game,
           accountResult.accountName,
+          accountResult.email,
           i + 1,
           result.success,
           result.message
