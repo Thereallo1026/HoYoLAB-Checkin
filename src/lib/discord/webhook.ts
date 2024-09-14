@@ -73,8 +73,11 @@ export async function sendWebhook(
     embed.thumbnail = { url: thumbnailUrl };
   }
 
+  const identifier =
+    accountName && email ? `${accountName} (${email})` : accountName || email;
+
   const payload: WebhookPayload = {
-    username: `HoYoLAB Check-in | Account ${accountIndex} - ${accountName}`,
+    username: `HoYoLAB Check-in | Account ${accountIndex} - ${identifier}`,
     content: `Check-in executed <t:${Math.round(Date.now() / 1000)}:R>`,
     embeds: [embed],
   };
@@ -84,8 +87,6 @@ export async function sendWebhook(
     if (response.status !== 204) {
       throw new Error(`Unexpected response status: ${response.status}`);
     }
-    const identifier =
-      accountName && email ? `${accountName} (${email})` : accountName || email;
 
     console.log(`Webhook sent successfully for ${game} ${identifier}`);
   } catch (error) {
