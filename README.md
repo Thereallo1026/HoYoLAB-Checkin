@@ -40,7 +40,7 @@
 ### Configuration
 
 - **Configuring tokens**: Ensure your tokens are correctly formatted in the environment variables.
-- **Setting Up Webhook**: Add your Discord webhook URL to the appropriate configuration file.
+- **Setting Up Webhook**: Add your Discord webhook URL to the appropriate environment variable.
 
 ### Frequently Asked Questions
 
