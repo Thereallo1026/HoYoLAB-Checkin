@@ -1,4 +1,4 @@
-![HoYoLAB Checkin](https://github.com/user-attachments/assets/3099cc04-a725-438b-8b1e-ba0f420b80a9)
+![HoYoLAB Checkin](https://github.com/user-attachments/assets/1ae984ff-54cc-4040-814f-6b12d78b0930)
 
 ## Features
 
