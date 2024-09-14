@@ -57,7 +57,8 @@ Both the stoken and mid can be found at the cookies header.
 
 #### Why did the script fail after a period of time?
 
-The script may fail due to expired stokens or a HoYoLAB geetest challenge. To resolve this, log in to HoYoLAB and complete the geetest challenge to restore functionality for automation.
+The script may fail due to expired stokens or a HoYoLAB geetest challenge. To resolve this, log in to HoYoLAB and complete the geetest challenge to restore functionality for automation. 
+While the chance of this happening is minimal, it's not impossible.
 
 ### Contributing
 
