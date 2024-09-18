@@ -1,6 +1,6 @@
 import axios from "axios";
 import { TokenInfo, getDsHeader } from "./token";
-import { ROUTES, HEADERS } from "./data";
+import { ROUTES, HEADERS } from "./constants";
 import { getGames } from "./utils";
 
 interface CheckInResult {

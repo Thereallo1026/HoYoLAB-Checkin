@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GAME_ICONS } from "../hoyolab/data";
+import { GAME_EMOTES } from "../hoyolab/constants";
 
 interface WebhookPayload {
   username: string;
@@ -9,18 +9,17 @@ interface WebhookPayload {
 
 interface Embed {
   title: string;
-  description: string;
   color: number;
-  author: {
-    name: string;
-    icon_url: string;
-  };
+  fields: EmbedField[];
   footer: {
     text: string;
   };
-  thumbnail?: {
-    url: string;
-  };
+}
+
+interface EmbedField {
+  name: string;
+  value: string;
+  inline: boolean;
 }
 
 interface CheckInResult {
@@ -37,73 +36,10 @@ interface AccountCheckInResult {
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export async function sendWebhook(
-  webhookUrl: string,
-  game: string,
-  accountName: string,
-  email: string,
-  accountIndex: number,
-  success: boolean,
-  message: string,
-  thumbnailUrl?: string
-) {
-  if (
-    !webhookUrl ||
-    !webhookUrl.startsWith("https://discord.com/api/webhooks/")
-  ) {
-    throw new Error("Invalid Discord webhook URL");
-  }
-
-  const embed: Embed = {
-    title: success ? "Check-in Successful" : "Check-in Failed",
-    description: message,
-    color: success ? 0x00ff00 : 0xff0000,
-    author: {
-      name: game,
-      icon_url:
-        GAME_ICONS[game as keyof typeof GAME_ICONS] ||
-        "https://cdn.gilcdn.com/ContentMediaGenericFiles/86a5a5602d2dee96134733916bc891a9-Full.webp",
-    },
-    footer: {
-      text: `HoYoLAB-Check-in`,
-    },
-  };
-
-  if (thumbnailUrl) {
-    embed.thumbnail = { url: thumbnailUrl };
-  }
-
-  const identifier =
-    accountName && email ? `${accountName} (${email})` : accountName || email;
-
-  const payload: WebhookPayload = {
-    username: `HoYoLAB Check-in | Account ${accountIndex} - ${identifier}`,
-    content: `Check-in executed <t:${Math.round(Date.now() / 1000)}:R>`,
-    embeds: [embed],
-  };
-
-  try {
-    const response = await axios.post(webhookUrl, payload);
-    if (response.status !== 204) {
-      throw new Error(`Unexpected response status: ${response.status}`);
-    }
-
-    console.log(`Webhook sent successfully for ${game} ${identifier}`);
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      if (error.response?.status === 404) {
-        throw new Error(
-          "Webhook not found. Please check your Discord webhook URL."
-        );
-      } else if (error.response?.status === 429) {
-        throw new Error("Rate limit exceeded. Please try again later.");
-      }
-    }
-    throw new Error(
-      `Failed to send webhook for ${game} (${accountName}): ${
-        error instanceof Error ? error.message : "Unknown error"
-      }`
-    );
+async function sendWebhook(webhookUrl: string, payload: WebhookPayload) {
+  const response = await axios.post(webhookUrl, payload);
+  if (response.status !== 204) {
+    throw new Error(`Unexpected response status: ${response.status}`);
   }
 }
 
@@ -118,28 +54,55 @@ export async function sendCheckin(
     throw new Error("Invalid Discord webhook URL");
   }
 
-  for (let i = 0; i < results.length; i++) {
-    const accountResult = results[i];
-    for (const result of accountResult.results) {
-      try {
-        await sendWebhook(
-          webhookUrl,
-          result.game,
-          accountResult.accountName,
-          accountResult.email,
-          i + 1,
-          result.success,
-          result.message
-        );
-        await delay(800);
-      } catch (error) {
-        console.error(
-          `Error sending webhook: ${
-            error instanceof Error ? error.message : "Unknown error"
-          }`
-        );
-        throw error; // re-throw the error to stop the process
+  for (let accountIndex = 0; accountIndex < results.length; accountIndex++) {
+    const accountResult = results[accountIndex];
+    const fields: EmbedField[] = accountResult.results.map((result) => ({
+      name: `${GAME_EMOTES[result.game as keyof typeof GAME_EMOTES] || ""} ${
+        result.game
+      }`,
+      value: `Check-in ${result.success ? "success" : "failed"}\n\`\`\`${
+        result.message
+      }\`\`\``,
+      inline: false,
+    }));
+
+    const identifier = `${accountResult.accountName || accountResult.email}`;
+    const embed: Embed = {
+      title: `Account ${accountIndex + 1}: ${identifier.replace("*", "\\*")}`,
+      color: accountResult.results.every((r) => r.success)
+        ? 0x00ff00
+        : 0xff0000,
+      fields,
+      footer: {
+        text: "HoYoLAB Check-in",
+      },
+    };
+
+    const payload: WebhookPayload = {
+      username: `HoYoLAB Check-in | Account ${accountIndex + 1}`,
+      content: `Check-in executed <t:${Math.round(Date.now() / 1000)}:R>`,
+      embeds: [embed],
+    };
+
+    try {
+      await sendWebhook(webhookUrl, payload);
+      console.log(`Webhook sent successfully for Account ${accountIndex + 1}`);
+      await delay(500);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 404) {
+          throw new Error(
+            "Webhook not found. Please check your Discord webhook URL."
+          );
+        } else if (error.response?.status === 429) {
+          throw new Error("Rate limit exceeded. Please try again later.");
+        }
       }
+      throw new Error(
+        `Failed to send webhook for Account ${accountIndex + 1}: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
+      );
     }
   }
 }

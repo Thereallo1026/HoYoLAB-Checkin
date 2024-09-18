@@ -1,6 +1,6 @@
 import axios from "axios";
 import { TokenInfo, getDsHeader } from "./token";
-import { HEADERS } from "./data";
+import { HEADERS } from "./constants";
 
 export async function getGames(tokens: TokenInfo): Promise<string[]> {
   const { ltuid, ltoken } = tokens;
