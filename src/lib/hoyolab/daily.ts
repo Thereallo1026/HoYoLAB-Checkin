@@ -1,19 +1,6 @@
-import axios from "axios";
 import { TokenInfo, getDsHeader } from "./token";
 import { ROUTES, HEADERS } from "./constants";
 import { getGames } from "./utils";
-
-interface CheckInResult {
-  game: string;
-  success: boolean;
-  message: string;
-}
-
-interface AccountCheckInResult {
-  accountName: string;
-  email: string;
-  results: CheckInResult[];
-}
 
 export async function performCheckin(
   tokens: TokenInfo
@@ -33,30 +20,35 @@ export async function performCheckin(
           cookie: `ltmid_v2=${ltuid};ltoken_v2=${ltoken};ltuid_v2=${ltuid};`,
         };
 
-        const response = await axios.post(
-          url,
-          {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            ...headers,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
             act_id: actId,
             lang: "en-us",
-          },
-          { headers }
-        );
+          }),
+        });
 
-        if (response.data.retcode === 0) {
-          results.push({ game, success: true, message: response.data.message });
+        const data = await response.json();
+
+        if (data.retcode === 0) {
+          results.push({ game, success: true, message: data.message });
         } else {
           results.push({
             game,
             success: false,
-            message: response.data.message,
+            message: data.message,
           });
         }
       } catch (error) {
-        if (axios.isAxiosError(error)) {
+        if (error instanceof Error) {
           results.push({
             game,
             success: false,
-            message: error.response?.data?.message || error.message,
+            message: error.message,
           });
         } else {
           results.push({
@@ -87,4 +79,16 @@ export async function checkinAll(
   }
 
   return allResults;
+}
+
+interface CheckInResult {
+  game: string;
+  success: boolean;
+  message: string;
+}
+
+interface AccountCheckInResult {
+  accountName: string;
+  email: string;
+  results: CheckInResult[];
 }

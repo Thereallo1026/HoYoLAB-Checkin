@@ -1,4 +1,3 @@
-import axios from "axios";
 import crypto from "crypto";
 
 async function getToken(stoken: string, mid: string) {
@@ -9,13 +8,22 @@ async function getToken(stoken: string, mid: string) {
     "accept-language": "en-us",
     "x-rpc-app_id": "c9oqaq3s3gu8",
     cookie: `stoken=${stoken};mid=${mid}`,
+    "Content-Type": "application/json",
   };
   const body = { dst_token_types: [2] };
 
   try {
-    const response = await axios.post(url, body, { headers });
+    const response = await fetch(url, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body),
+    });
 
-    const json = response.data as Data;
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const json = (await response.json()) as Data;
     const retcode = json.retcode;
     if (retcode !== 0) {
       throw new Error(json.message);
@@ -31,10 +39,10 @@ async function getToken(stoken: string, mid: string) {
     }
     return { ltuid, ltoken, data: { accountName, email } }; // return
   } catch (error) {
-    if (axios.isAxiosError(error)) {
+    if (error instanceof Error) {
       throw new Error(`Failed to get token: ${error.message}`);
     } else {
-      throw error;
+      throw new Error("An unknown error occurred");
     }
   }
 }

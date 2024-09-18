@@ -1,43 +1,15 @@
-import axios from "axios";
 import { GAME_EMOTES } from "../hoyolab/constants";
-
-interface WebhookPayload {
-  username: string;
-  content: string;
-  embeds: Embed[];
-}
-
-interface Embed {
-  title: string;
-  color: number;
-  fields: EmbedField[];
-  footer: {
-    text: string;
-  };
-}
-
-interface EmbedField {
-  name: string;
-  value: string;
-  inline: boolean;
-}
-
-interface CheckInResult {
-  game: string;
-  success: boolean;
-  message: string;
-}
-
-interface AccountCheckInResult {
-  accountName: string;
-  email: string;
-  results: CheckInResult[];
-}
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function sendWebhook(webhookUrl: string, payload: WebhookPayload) {
-  const response = await axios.post(webhookUrl, payload);
+  const response = await fetch(webhookUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
   if (response.status !== 204) {
     throw new Error(`Unexpected response status: ${response.status}`);
   }
@@ -89,12 +61,12 @@ export async function sendCheckin(
       console.log(`Webhook sent successfully for Account ${accountIndex + 1}`);
       await delay(500);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 404) {
+      if (error instanceof Error) {
+        if (error.message.includes("404")) {
           throw new Error(
             "Webhook not found. Please check your Discord webhook URL."
           );
-        } else if (error.response?.status === 429) {
+        } else if (error.message.includes("429")) {
           throw new Error("Rate limit exceeded. Please try again later.");
         }
       }
@@ -105,4 +77,37 @@ export async function sendCheckin(
       );
     }
   }
+}
+
+interface WebhookPayload {
+  username: string;
+  content: string;
+  embeds: Embed[];
+}
+
+interface Embed {
+  title: string;
+  color: number;
+  fields: EmbedField[];
+  footer: {
+    text: string;
+  };
+}
+
+interface EmbedField {
+  name: string;
+  value: string;
+  inline: boolean;
+}
+
+interface CheckInResult {
+  game: string;
+  success: boolean;
+  message: string;
+}
+
+interface AccountCheckInResult {
+  accountName: string;
+  email: string;
+  results: CheckInResult[];
 }
