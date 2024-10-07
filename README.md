@@ -26,7 +26,7 @@
 
    - Go to the "Settings" of your forked repository.
    - Navigate to the "Security" section > "Secrets and variables" > "Actions".
-   - Follow the following repository secrets example:
+   - Add the following repository secrets:
 
      ```env
      HOYO_TOKENS=[{"stoken":"v2_XXXXXXX1234567890abcdefgHIJKLMN","mid":"1234567890_abc"},{"stoken":"v2_XXXXXXX1234567890abcdefgHIJKLMN","mid":"0987654321_def"}]
