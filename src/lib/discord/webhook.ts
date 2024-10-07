@@ -66,7 +66,8 @@ export async function sendCheckin(
           throw new Error(
             "Webhook not found. Please check your Discord webhook URL."
           );
-        } else if (error.message.includes("429")) {
+        }
+        if (error.message.includes("429")) {
           throw new Error("Rate limit exceeded. Please try again later.");
         }
       }

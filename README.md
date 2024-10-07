@@ -18,7 +18,7 @@
 
 ### Usage
 
-1. **Fork the repository**: Go to [HoYoLAB-Checkin on GitHub](https://github.com/yourusername/HoYoLAB-Checkin) and fork the repository.
+1. **Fork the repository**: Go to [HoYoLAB-Checkin on GitHub](https://github.com/Thereallo1026/HoYoLAB-Checkin) and fork the repository.
 
 2. **Retrieve Tokens from HoYoLAB**: Use a network monitoring tool to capture the `stoken` and `mid` from HoYoLAB requests. For detailed instructions, please refer to [this section](#where-can-i-find-my-stoken).
 
@@ -26,7 +26,7 @@
 
    - Go to the "Settings" of your forked repository.
    - Navigate to the "Security" section > "Secrets and variables" > "Actions".
-   - Add the following repository secrets:
+   - Follow the following repository secrets example:
 
      ```env
      HOYO_TOKENS=[{"stoken":"v2_XXXXXXX1234567890abcdefgHIJKLMN","mid":"1234567890_abc"},{"stoken":"v2_XXXXXXX1234567890abcdefgHIJKLMN","mid":"0987654321_def"}]

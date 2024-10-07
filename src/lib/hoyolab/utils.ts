@@ -1,4 +1,5 @@
-import { TokenInfo, getDsHeader } from "./token";
+import type { TokenInfo } from "./token";
+import { getDsHeader } from "./token";
 import { HEADERS } from "./constants";
 
 export async function getGames(tokens: TokenInfo): Promise<string[]> {

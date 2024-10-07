@@ -1,4 +1,5 @@
-import { TokenInfo, getDsHeader } from "./token";
+import type { TokenInfo } from "./token";
+import { getDsHeader } from "./token";
 import { ROUTES, HEADERS } from "./constants";
 import { getGames } from "./utils";
 

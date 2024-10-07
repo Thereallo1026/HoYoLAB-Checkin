@@ -1,4 +1,4 @@
-import crypto from "crypto";
+import crypto from "node:crypto";
 
 async function getToken(stoken: string, mid: string) {
   const url =
@@ -41,9 +41,8 @@ async function getToken(stoken: string, mid: string) {
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(`Failed to get token: ${error.message}`);
-    } else {
-      throw new Error("An unknown error occurred");
     }
+    throw new Error("An unknown error occurred");
   }
 }
 
@@ -82,11 +81,11 @@ function generateRandomString(myLength: number) {
 }
 
 export function getDsHeader() {
-  let r = generateRandomString(6);
-  let t = Math.floor(Date.now() / 1000);
+  const r = generateRandomString(6);
+  const t = Math.floor(Date.now() / 1000);
 
-  let ossalt = "6s25p5ox5y14umn1p61aqyyvbvvl3lrt";
-  let hash = crypto.createHash("md5").update(`salt=${ossalt}&t=${t}&r=${r}`);
+  const ossalt = "6s25p5ox5y14umn1p61aqyyvbvvl3lrt";
+  const hash = crypto.createHash("md5").update(`salt=${ossalt}&t=${t}&r=${r}`);
   const result = `${t},${r},${hash.digest("hex")}`;
   return result;
 }
