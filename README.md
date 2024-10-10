@@ -67,6 +67,10 @@ While the chance of this happening is minimal, it's not impossible.
 3. Commit your changes and push the branch.
 4. Open a pull request describing your changes in detail.
 
+## Planned Features
+
+- **Rewards Preview**: Show the rewards you will get from the check-in.
+
 ### Contact
 
 For any questions or issues, feel free to:

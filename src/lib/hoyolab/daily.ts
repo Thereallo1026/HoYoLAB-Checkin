@@ -21,7 +21,13 @@ export async function performCheckin(
           cookie: `ltmid_v2=${ltuid};ltoken_v2=${ltoken};ltuid_v2=${ltuid};`,
         };
 
-        const response = await fetch(url, {
+        if (game === "Genshin Impact") {
+          headers["x-rpc-signgame"] = "hk4e";
+        } else if (game === "Zenless Zone Zero") {
+          headers["x-rpc-signgame"] = "zzz";
+        }
+
+        const response = await fetch(`${url}?lang=en-us`, {
           method: "POST",
           headers: {
             ...headers,

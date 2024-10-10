@@ -25,7 +25,7 @@ export const REWARDS_ROUTES = {};
 
 export const HEADERS = {
   "User-Agent":
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0",
+    "HoYoLAB/21 CFNetwork/1568.200.41 Darwin/24.1.0",
   Accept: "application/json, text/plain, */*",
   "Accept-Language": "en-US,en;q=0.5",
   "Content-Type": "application/json;charset=utf-8",
