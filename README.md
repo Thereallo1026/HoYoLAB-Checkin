@@ -42,20 +42,20 @@
 - **Configuring tokens**: Ensure your tokens are correctly formatted in the environment variables.
 - **Setting Up Webhook**: Add your Discord webhook URL to the appropriate environment variable.
 
-### Frequently Asked Questions
+## Frequently Asked Questions
 
-#### What is a network monitoring tool?
+### What is a network monitoring tool?
 
 A network monitoring tool helps you inspect and analyze network traffic. Examples include Fiddler (Both Anywhere and Classic), HTTP Toolkit, and any other tool capable of proxying and monitoring device traffic.
 
-#### Where can I find my stoken?
+### Where can I find my stoken?
 
 You can locate your stoken by monitoring requests to the endpoint that includes "getBySToken" from the HoYoLAB app, the URL should be `https://sg-public-api.hoyoverse.com/account/ma-passport/token/getBySToken`.
 
 Both the stoken and mid can be found at the cookies header.
 ![Screenshot](https://cdn.gilcdn.com/ContentMediaGenericFiles/c7f1a6796f497f81737b541a0823c80e-Full.webp)
 
-#### Why did the script fail after a period of time?
+### Why did the script fail after a period of time?
 
 The script may fail due to expired stokens or a HoYoLAB geetest challenge. To resolve this, log in to HoYoLAB and complete the geetest challenge to restore functionality for automation. 
 While the chance of this happening is minimal, it's not impossible.
@@ -71,7 +71,7 @@ While the chance of this happening is minimal, it's not impossible.
 
 - **Rewards Preview**: Show the rewards you will get from the check-in.
 
-### Contact
+## Contact
 
 For any questions or issues, feel free to:
 
