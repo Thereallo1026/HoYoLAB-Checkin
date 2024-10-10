@@ -57,10 +57,17 @@ Both the stoken and mid can be found at the cookies header.
 
 ### Why did the script fail after a period of time?
 
-The script may fail due to expired stokens or a HoYoLAB geetest challenge. To resolve this, log in to HoYoLAB and complete the geetest challenge to restore functionality for automation. 
-While the chance of this happening is minimal, it's not impossible.
+The script may fail due to expired stokens or a HoYoLAB geetest challenge, while the chance of this happening is minimal, it's not impossible. To resolve this:
 
-### Contributing
+#### Geetest
+
+Log in to HoYoLAB and complete the geetest challenge.
+
+#### Expired tokens
+
+Redo the setup process, and replace all expired tokens.
+
+## Contributing
 
 1. [Fork this repository](https://github.com/thereallo1026/HoYoLAB-Checkin).
 2. Create a new branch for your feature or bugfix.
