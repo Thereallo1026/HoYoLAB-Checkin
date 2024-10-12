@@ -1,22 +1,27 @@
 export const ROUTES = {
   "Honkai: Star Rail": {
     url: "https://sg-public-api.hoyolab.com/event/luna/os/sign",
+    gameName: "hkrpg",
     actId: "e202303301540311",
   },
   "Zenless Zone Zero": {
     url: "https://sg-act-nap-api.hoyolab.com/event/luna/zzz/os/sign",
+    gameName: "nap",
     actId: "e202406031448091",
   },
   "Genshin Impact": {
     url: "https://sg-hk4e-api.hoyolab.com/event/sol/sign",
+    gameName: "hk4e",
     actId: "e202102251931481",
   },
   "Honkai Impact 3rd": {
     url: "https://sg-public-api.hoyolab.com/event/mani/sign",
+    gameName: "mani",
     actId: "e202110291205111",
   },
   "Tears of Themis": {
     url: "https://sg-public-api.hoyolab.com/event/luna/os/sign",
+    gameName: "nxx",
     actId: "e202202281857121",
   },
 };

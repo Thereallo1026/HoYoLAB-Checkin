@@ -12,29 +12,24 @@ export async function performCheckin(
 
   for (const game of registeredGames) {
     if (game in ROUTES) {
-      const { url, actId } = ROUTES[game as keyof typeof ROUTES];
+      const routeInfo = ROUTES[game as keyof typeof ROUTES];
 
       try {
         const headers = {
           ...HEADERS,
           ds: getDsHeader(),
+          "x-rpc-signgame": routeInfo.gameName,
           cookie: `ltmid_v2=${ltuid};ltoken_v2=${ltoken};ltuid_v2=${ltuid};`,
         };
 
-        if (game === "Genshin Impact") {
-          headers["x-rpc-signgame"] = "hk4e";
-        } else if (game === "Zenless Zone Zero") {
-          headers["x-rpc-signgame"] = "zzz";
-        }
-
-        const response = await fetch(`${url}?lang=en-us`, {
+        const response = await fetch(`${routeInfo.url}?lang=en-us`, {
           method: "POST",
           headers: {
             ...headers,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            act_id: actId,
+            act_id: routeInfo.actId,
             lang: "en-us",
           }),
         });
@@ -98,4 +93,10 @@ interface AccountCheckInResult {
   accountName: string;
   email: string;
   results: CheckInResult[];
+}
+
+interface RouteType {
+  url: string;
+  gameName?: string;
+  actId: string;
 }
