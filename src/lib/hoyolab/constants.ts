@@ -6,7 +6,7 @@ export const ROUTES = {
   },
   "Zenless Zone Zero": {
     url: "https://sg-act-nap-api.hoyolab.com/event/luna/zzz/os/sign",
-    gameName: "nap",
+    gameName: "zzz",
     actId: "e202406031448091",
   },
   "Genshin Impact": {
@@ -20,7 +20,7 @@ export const ROUTES = {
     actId: "e202110291205111",
   },
   "Tears of Themis": {
-    url: "https://sg-public-api.hoyolab.com/event/luna/os/sign",
+    url: "https://sg-public-api.hoyolab.com/event/luna/nxx/os/sign",
     gameName: "nxx",
     actId: "e202202281857121",
   },
