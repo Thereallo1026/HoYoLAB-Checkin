@@ -37,6 +37,9 @@
 
    - Make sure the action is triggered and runs correctly by executing it once manually from the GitHub Actions tab.
 
+> [!TIP]
+> The workflow might fail on the first run due to already checked in, you can ignore the error if you checked in before. It will run correctly on the next scheduled run.
+
 ### Configuration
 
 - **Configuring tokens**: Ensure your tokens are correctly formatted in the environment variables.
@@ -76,7 +79,9 @@ Redo the setup process, and replace all expired tokens.
 
 ## Planned Features
 
-- **Rewards Preview**: Show the rewards you will get from the check-in.
+[ ] **Rewards Preview**: Show the rewards you will get from the check-in.
+
+[ ] **Redemption Codes**: Redeem redemption codes from promotions and live events.
 
 ## Contact
 
