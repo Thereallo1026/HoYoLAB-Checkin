@@ -10,7 +10,7 @@
   "author": "Thereallo",
   "license": "GPL-3.0-only",
   "dependencies": {
-    "@types/node": "^20.17.19",
-    "typescript": "^5.7.3"
+    "@types/node": "^20.17.24",
+    "typescript": "^5.8.2"
   }
 }
