@@ -79,9 +79,9 @@ Redo the setup process, and replace all expired tokens.
 
 ## Planned Features
 
-[ ] **Rewards Preview**: Show the rewards you will get from the check-in.
+- [ ] **Rewards Preview**: Show the rewards you will get from the check-in.
 
-[ ] **Redemption Codes**: Redeem redemption codes from promotions and live events.
+- [ ] **Redemption Codes**: Redeem redemption codes from promotions and live events.
 
 ## Contact
 
