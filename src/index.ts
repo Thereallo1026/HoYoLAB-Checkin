@@ -19,12 +19,9 @@ if (!DISCORD_WEBHOOK_URL) {
     const gameArray = await getGames(tokens);
     const { accountName, email } = tokens.data;
 
-    const tokenMessage =
-      accountName && email
+    console.log(accountName && email
         ? `Got tokens for ${accountName} (${email})`
-        : `Got tokens for ${accountName || email}`;
-
-    console.log(tokenMessage);
+        : `Got tokens for ${accountName || email}`);
 
     console.log(
       `Registered games: ${gameArray.length ? gameArray.join(", ") : "None"}`
