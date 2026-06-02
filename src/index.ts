@@ -1,60 +1,69 @@
+import { sendCheckin } from "./lib/discord/webhook";
+import { checkinAll } from "./lib/hoyolab/daily";
 import { condenseTokens } from "./lib/hoyolab/token";
 import { getGames } from "./lib/hoyolab/utils";
-import { checkinAll } from "./lib/hoyolab/daily";
-import { sendCheckin } from "./lib/discord/webhook";
 
 const accountsArray = JSON.parse(process.env.HOYO_TOKENS as string);
-const DISCORD_WEBHOOK_URL = process.env.WEBHOOK;
+const DISCORD_WEBHOOK = process.env.WEBHOOK;
 
-if (!DISCORD_WEBHOOK_URL) {
-  console.error("Discord webhook URL is not set in the environment variables.");
-  process.exit(1);
+if (!DISCORD_WEBHOOK) {
+	console.error("Discord webhook URL is not set in the environment variables.");
+	process.exit(1);
 }
 
 (async () => {
-  const tokensArray = await condenseTokens(accountsArray);
+	const tokensArray = await condenseTokens(accountsArray);
 
-  // log registered games
-  for (const tokens of tokensArray) {
-    const gameArray = await getGames(tokens);
-    const { accountName, email } = tokens.data;
+	// log registered games
+	for (const tokens of tokensArray) {
+		const gameArray = await getGames(tokens);
+		const { accountName, email } = tokens.data;
 
-    console.log(accountName && email
-        ? `Got tokens for ${accountName} (${email})`
-        : `Got tokens for ${accountName || email}`);
+		console.log(
+			accountName && email
+				? `Got tokens for ${accountName} (${email})`
+				: `Got tokens for ${accountName || email}`,
+		);
 
-    console.log(
-      `Registered games: ${gameArray.length ? gameArray.join(", ") : "None"}`
-    );
-  }
+		console.log(
+			`Registered games: ${gameArray.length ? gameArray.join(", ") : "None"}`,
+		);
+	}
 
-  console.log("\nPerforming daily check-ins...\n");
+	console.log("\nPerforming daily check-ins...\n");
 
-  // check-in all accounts
-  const checkInResults = await checkinAll(tokensArray);
+	// check-in all accounts
+	const checkInResults = await checkinAll(tokensArray);
 
-  for (const accountResult of checkInResults) {
-    const identifier = accountResult.accountName || accountResult.email;
-    console.log(`Daily check-in for ${identifier}:`);
-    for (const result of accountResult.results) {
-      console.log(
-        `[${result.success ? "Success" : "Failed"}] ${result.game}: ${
-          result.message
-        }`
-      );
-    }
-    console.log("---");
-  }
+	for (const accountResult of checkInResults) {
+		const identifier = accountResult.accountName || accountResult.email;
+		console.log(`Daily check-in for ${identifier}:`);
+		for (const result of accountResult.results) {
+			const rewardText = result.reward
+				? ` | Reward: ${result.reward.name} x${result.reward.count}`
+				: "";
+			const totalText =
+				typeof result.totalSignDays === "number"
+					? ` | Total sign-ins: ${result.totalSignDays + (result.success ? 1 : 0)}`
+					: "";
+			console.log(
+				`[${result.success ? "Success" : "Failed"}] ${result.game}: ${
+					result.message
+				}${rewardText}${totalText}`,
+			);
+		}
+		console.log("---");
+	}
 
-  // send webhooks
-  console.log("\nSending Discord webhooks...");
-  try {
-    await sendCheckin(DISCORD_WEBHOOK_URL, checkInResults);
-    console.log("Discord webhooks sent successfully.");
-  } catch (error) {
-    console.error(
-      "Failed to send Discord webhooks:",
-      error instanceof Error ? error.message : "Unknown error"
-    );
-  }
+	// send webhooks
+	console.log("\nSending Discord webhooks...");
+	try {
+		await sendCheckin(DISCORD_WEBHOOK, checkInResults);
+		console.log("Discord webhooks sent successfully.");
+	} catch (error) {
+		console.error(
+			"Failed to send Discord webhooks:",
+			error instanceof Error ? error.message : "Unknown error",
+		);
+	}
 })();

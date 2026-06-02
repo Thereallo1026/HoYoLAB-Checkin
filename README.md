@@ -4,8 +4,9 @@
 
 - **Automated Daily Check-ins**: Executes daily check-ins for HoYoverse games.
 - **Auto Game Detection**: Automatically detects which games are registered and performs check-ins accordingly.
-- **Discord Notifications**: Sends notifications to a Discord channel about check-in status and any relevant updates using webhooks.
+- **Discord Notifications**: Sends Discord Components v2 notifications with check-in status and reward thumbnails using webhooks.
 - **Multiple Accounts Support**: Handles check-ins for multiple HoYoLAB accounts simultaneously.
+- **Rewards Preview**: Shows each game's daily reward before the check-in result.
 
 ## Getting Started
 
@@ -79,7 +80,7 @@ Redo the setup process, and replace all expired tokens.
 
 ## Planned Features
 
-- [ ] **Rewards Preview**: Show the rewards you will get from the check-in.
+- [x] **Rewards Preview**: Show the rewards you will get from the check-in with Discord Components v2 thumbnails.
 
 - [ ] **Redemption Codes**: Redeem redemption codes from promotions and live events.
 
